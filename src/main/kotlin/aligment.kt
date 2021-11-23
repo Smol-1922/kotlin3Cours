@@ -82,23 +82,23 @@ private fun alignTextRight(
     while (indexOfLastSymbol < text.length + lineWidth) {
         indexOfFirstSymbol = indexOfLastSymbol
         indexOfLastSymbol += lineWidth
-        if (line.lastIndexOf(' ') == -1 || line.length == text.length) { //Последний пробел в строке(если нет)
+        if (line.lastIndexOf(' ') == -1 || line.length == text.length) {
             if (indexOfLastSymbol > text.length) {
-                line = text.substring(indexOfFirstSymbol, text.length)//Если текст состоит из одной строки
+                line = text.substring(indexOfFirstSymbol, text.length)
                 line = line.padStart(lineWidth, ' ')
             } else
                 line = text.substring(indexOfFirstSymbol, indexOfLastSymbol)
-        } else {// Если пробел есть
-            if (text[indexOfLastSymbol] == ' ')// Если следующий знак после конца строки пробел, значит ничего ровнять не нужно
-                indexOfLastSymbol++// не пишем пробел
+        } else {
+            if (text[indexOfLastSymbol] == ' ')
+                indexOfLastSymbol++
             else {
-                indexOfLastSymbol += line.lastIndexOf(' ') - (lineWidth - 1)// берем индекс последнего пробела
-                line = text.substring(indexOfFirstSymbol, indexOfLastSymbol - 1)// не берем пробел
+                indexOfLastSymbol += line.lastIndexOf(' ') - (lineWidth - 1)
+                line = text.substring(indexOfFirstSymbol, indexOfLastSymbol - 1)
                 line = line.padStart(lineWidth, ' ')
             }
         }
         result += line + "\n"
-        if (indexOfLastSymbol + lineWidth <= text.length)// Если текст на этом заканчивается
+        if (indexOfLastSymbol + lineWidth <= text.length)
             line = text.substring(indexOfLastSymbol, indexOfLastSymbol + lineWidth)
         else {
             if (text.length - indexOfLastSymbol > 0) {
@@ -122,24 +122,24 @@ private fun alignTextCenter(
     line = if (text.length > lineWidth)
         text.substring(0, lineWidth)
     else
-        text// Добавить в начало вызывающей функции
+        text
     var indexOfLastSymbol = 0
     var indexOfFirstSymbol: Int
     while (indexOfLastSymbol < text.length) {
         indexOfFirstSymbol = indexOfLastSymbol
         indexOfLastSymbol += lineWidth
-        if (line.lastIndexOf(' ') == -1 || line.length == text.length) { //Последний пробел в строке(если нет)
+        if (line.lastIndexOf(' ') == -1 || line.length == text.length) {
             if (indexOfLastSymbol > text.length) {
-                line = text.substring(indexOfFirstSymbol, text.length)//Если текст состоит из одной строки
+                line = text.substring(indexOfFirstSymbol, text.length)
                 line = line.padEnd(text.length + (lineWidth - text.length) / 2, ' ')
                 line = line.padStart(lineWidth, ' ')
             } else
                 line = text.substring(indexOfFirstSymbol, indexOfLastSymbol)
         } else {// Если пробел есть
-            if (text[indexOfLastSymbol] == ' ')// Если следующий знак после конца строки пробел, значит ничего ровнять не нужно
+            if (text[indexOfLastSymbol] == ' ')
                 indexOfLastSymbol++// не пишем пробел
             else {
-                indexOfLastSymbol += line.lastIndexOf(' ') - (lineWidth - 1)// берем индекс последнего пробела
+                indexOfLastSymbol += line.lastIndexOf(' ') - (lineWidth - 1)
                 line = text.substring(indexOfFirstSymbol, indexOfLastSymbol - 1)
                 line = line.padEnd(
                     (indexOfLastSymbol - indexOfFirstSymbol) + (lineWidth - (indexOfLastSymbol - indexOfFirstSymbol)) / 2,
@@ -149,7 +149,7 @@ private fun alignTextCenter(
             }
         }
         result += line + "\n"
-        if (indexOfLastSymbol + lineWidth < text.length)// Если текст на этом заканчивается
+        if (indexOfLastSymbol + lineWidth < text.length)
             line = text.substring(indexOfLastSymbol, indexOfLastSymbol + lineWidth)
         else {
             if (text.length - indexOfLastSymbol > 0) {
@@ -176,28 +176,28 @@ private fun alignTextJustify(
     line = if (text.length > lineWidth)
         text.substring(0, lineWidth)
     else
-        text// Добавить в начало вызывающей функции
+        text
     var indexOfLastSymbol = 0
-    var s: Int
+    var indexOfFirstSymbol: Int
     while (indexOfLastSymbol < text.length) {
-        s = indexOfLastSymbol
+        indexOfFirstSymbol = indexOfLastSymbol
         indexOfLastSymbol += lineWidth
-        if (line.lastIndexOf(' ') == -1 || line.length == text.length) { //Последний пробел в строке(если нет)
+        if (line.lastIndexOf(' ') == -1 || line.length == text.length) {
             line = if (indexOfLastSymbol > text.length) {
-                text.substring(s, text.length)//Если текст состоит из одной строки
+                text.substring(indexOfFirstSymbol, text.length)
             } else
-                text.substring(s, indexOfLastSymbol)
-        } else {// Если пробел есть
-            if (text[indexOfLastSymbol] == ' ')// Если следующий знак после конца строки пробел, значит ничего ровнять не нужно
-                indexOfLastSymbol++// не пишем пробел
+                text.substring(indexOfFirstSymbol, indexOfLastSymbol)
+        } else {
+            if (text[indexOfLastSymbol] == ' ')
+                indexOfLastSymbol++
             else {
-                indexOfLastSymbol += line.lastIndexOf(' ') - (lineWidth - 1)// берем индекс последнего пробела
-                line = addSpace(text.substring(s, indexOfLastSymbol - 1), lineWidth, indexOfLastSymbol - s - 1)
+                indexOfLastSymbol += line.lastIndexOf(' ') - (lineWidth - 1)
+                line = addSpace(text.substring(indexOfFirstSymbol, indexOfLastSymbol - 1), lineWidth, indexOfLastSymbol - indexOfFirstSymbol - 1)
             }
         }
         line = line.trim()
         result += line + "\n"
-        if (indexOfLastSymbol + lineWidth < text.length)// Если текст на этом заканчивается
+        if (indexOfLastSymbol + lineWidth < text.length)
             line = text.substring(indexOfLastSymbol, indexOfLastSymbol + lineWidth)
         else {
             if (text.length - indexOfLastSymbol > 0) {
@@ -210,16 +210,16 @@ private fun alignTextJustify(
     return result
 }
 
-private fun addSpace(line: String, lineWidth: Int, r: Int): String {
+private fun addSpace(line: String, lineWidth: Int, lengthOfString: Int): String {
     var amountOfSpaces = -1
     for (word in line.split(' ')) {
-        amountOfSpaces++//количество пробелов
+        amountOfSpaces++
     }
     if (amountOfSpaces == 0)
         return line
     var result = ""
-    val amountOfCharactersMissing = lineWidth - r + amountOfSpaces// количество недостающих симмволов
-    var extraSpaces = amountOfCharactersMissing % amountOfSpaces// количество строк с дополнительными пробелами
+    val amountOfCharactersMissing = lineWidth - lengthOfString + amountOfSpaces
+    var extraSpaces = amountOfCharactersMissing % amountOfSpaces
     for (word in line.split(' ')) {
         result += word
         if (result.length == lineWidth)
