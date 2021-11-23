@@ -192,7 +192,11 @@ private fun alignTextJustify(
                 indexOfLastSymbol++
             else {
                 indexOfLastSymbol += line.lastIndexOf(' ') - (lineWidth - 1)
-                line = addSpace(text.substring(indexOfFirstSymbol, indexOfLastSymbol - 1), lineWidth, indexOfLastSymbol - indexOfFirstSymbol - 1)
+                line = addSpace(
+                    text.substring(indexOfFirstSymbol, indexOfLastSymbol - 1),
+                    lineWidth,
+                    indexOfLastSymbol - indexOfFirstSymbol - 1
+                )
             }
         }
         line = line.trim()
