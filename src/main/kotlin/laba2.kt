@@ -4,7 +4,7 @@ import kotlin.math.pow
 fun calculator(infixString: String) {
     val list = stringInList(infixString)
     if (list.isEmpty())
-        throw Exception("you entered nothing")
+        throw IllegalArgumentException("You entered nothing")
     val postfix = postfix(list)
     print(computation(postfix))
 }
@@ -25,7 +25,7 @@ private fun stringInList(infixString: String): MutableList<String> {
         } else if (iter != ' ')
             symbol += iter
         if (symbol.toDoubleOrNull() == null && iter != ' ' && symbol != "") // if there is no number or space in the variable symbol, an exception is made
-            throw Exception("you entered unrecognized characters")
+            throw IllegalArgumentException("You entered unrecognized characters")
     }
     if (symbol.isNotEmpty())
         listValue.add(symbol)
@@ -43,7 +43,7 @@ private fun parentheses(infixString: String) {// counts the number of parenthese
             close++
     }
     if (close != open) {
-        throw Exception("not equal number of closing and opening parentheses")
+        throw IllegalArgumentException("Not equal number of closing and opening parentheses")
     }
 }
 
@@ -64,7 +64,7 @@ private fun postfix(listValue: MutableList<String>): MutableList<String> {
             }
             "*", "/" -> {//if the top priority in the stack is greater than or equal to the priority of the operation unload after adding the operation to the stack
                 if (flag || iter == 0) {
-                    throw Exception("incorrect input")
+                    throw IllegalArgumentException("Incorrect input")
                 }
                 if (stack.isNotEmpty() && priority(stack.peek()) >= 2)
                     unloading(queue, stack, priority(listValue[iter]))
@@ -73,7 +73,7 @@ private fun postfix(listValue: MutableList<String>): MutableList<String> {
             }
             "^" -> {
                 if (flag || iter == 0) {
-                    throw Exception("incorrect input")
+                    throw IllegalArgumentException("Incorrect input")
                 }
                 stack.push(listValue[iter])
                 flag = true
@@ -85,7 +85,7 @@ private fun postfix(listValue: MutableList<String>): MutableList<String> {
                     flag = false
                 } else {
                     if (flag || iter == 0) {
-                        throw Exception("incorrect input")
+                        throw IllegalArgumentException("Incorrect input")
                     }
                     if (stack.isEmpty() || stack.peek() == "(") stack.push(listValue[iter])
                     else if (priority(stack.peek()) >= 1) {//If the priority of the top operation is greater than the +- operation, the stack shall be unloaded
@@ -150,7 +150,7 @@ private fun computation(queue: MutableList<String>): String {
             "/" -> {
                 secondNumber = stack.pop().toDouble()
                 if (secondNumber == 0.0) {
-                    throw Exception("Cannot be divisible by 0")
+                    throw IllegalArgumentException("Cannot be divisible by 0")
                 }
                 firstNumber = stack.pop().toDouble()
                 stack.push((firstNumber / secondNumber).toString())
