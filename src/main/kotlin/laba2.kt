@@ -78,7 +78,7 @@ private fun postfix(listValue: MutableList<String>): MutableList<String> {
                 stack.push(listValue[iter])
                 flag = true
             }
-            "+", "-" -> {// if binary operation is first, after bracket or after operation, then we check this with variable flag, if it is true, then before binary operation there is another operation, and we need to check that after this operation there is a number, if the number is not, then make an error
+            "+", "-" -> {// if binary operation is first, after bracket or after operation , then we check this with variable flag, if it is true, then before binary operation there is another operation, and we need to check that after this operation there is a number, if the number is not, then make an error
                 if (iter == 0 || (listValue[iter - 1] == "(" && listValue[iter + 1].toDoubleOrNull() != null) || (flag && listValue[iter+1].toDoubleOrNull() != null)) {
                     iter++
                     queue.add(listValue[iter - 1] + listValue[iter])
