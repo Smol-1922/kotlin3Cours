@@ -60,7 +60,6 @@ private fun postfix(listValue: MutableList<String>): MutableList<String> {
             }
             ")" -> {// unload all the stakes before the opening bracket
                 unloading(queue, stack, priority(listValue[iter]))
-                flag = true
             }
             "*", "/" -> {//if the top priority in the stack is greater than or equal to the priority of the operation unload after adding the operation to the stack
                 if (flag || iter == 0) {
@@ -79,7 +78,7 @@ private fun postfix(listValue: MutableList<String>): MutableList<String> {
                 flag = true
             }
             "+", "-" -> {// if binary operation is first, after bracket or after operation , then we check this with variable flag, if it is true, then before binary operation there is another operation, and we need to check that after this operation there is a number, if the number is not, then make an error
-                if (iter == 0 || (listValue[iter - 1] == "(" && listValue[iter + 1].toDoubleOrNull() != null) || (flag && listValue[iter+1].toDoubleOrNull() != null)) {
+                if (iter == 0 || (listValue[iter - 1] == "(" && listValue[iter + 1].toDoubleOrNull() != null) || (flag && listValue[iter + 1].toDoubleOrNull() != null)) {
                     iter++
                     queue.add(listValue[iter - 1] + listValue[iter])
                     flag = false
