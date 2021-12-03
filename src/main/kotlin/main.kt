@@ -25,8 +25,8 @@ fun main() {
     shapeList.add(shapeFactoryIMpl.createRandomShape())
     println("The sum of all areas: ${figureOperations.sumArea(shapeList)}")
     println("The sum of all Perimeter: ${figureOperations.sumPerimeter(shapeList)}")
-    println("Maximum area: ${figureOperations.maxPerimetr(shapeList)}")
-    println("Minimum area: ${figureOperations.minPerimetr(shapeList)}")
+    println("Maximum area: ${figureOperations.maxPerimeter(shapeList)}")
+    println("Minimum area: ${figureOperations.minPerimeter(shapeList)}")
     println("Maximum perimeter: ${figureOperations.maxArea(shapeList)}")
     println("Minimum perimeter: ${figureOperations.minArea(shapeList)}")
 }

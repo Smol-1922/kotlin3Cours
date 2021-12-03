@@ -148,7 +148,7 @@ class FigureOperations {
         return sum
     }
 
-    fun maxPerimetr(listShape: MutableList<Shape>): Shape {
+    fun maxPerimeter(listShape: MutableList<Shape>): Shape {
         var max = 0.0
         var shape: Shape = listShape.first()
         for (it in listShape)
@@ -159,7 +159,7 @@ class FigureOperations {
         return shape
     }
 
-    fun minPerimetr(listShape: MutableList<Shape>): Shape {
+    fun minPerimeter(listShape: MutableList<Shape>): Shape {
         var min = 350.0//больше 300 не может быть
         var shape: Shape = listShape.first()
         for (it in listShape)
