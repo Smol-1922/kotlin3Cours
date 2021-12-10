@@ -1,11 +1,13 @@
 import kotlin.math.*
 
+const val maxSize = 50
+
 interface Shape {
     fun calcArea(): Double
     fun calcPerimeter(): Double
 }
 
-class Circle(private val radius: Double) : Shape {
+class Circle(val radius: Double) : Shape {
     init {
         if (radius <= 0)
             throw IllegalArgumentException("radius cannot be less than or equal to 0")
@@ -21,7 +23,7 @@ class Circle(private val radius: Double) : Shape {
 
 }
 
-class Square(private val side: Double) : Shape {
+class Square(val side: Double) : Shape {
     init {
         if (side <= 0)
             throw IllegalArgumentException("side of square cannot be less than or equal to 0")
@@ -37,7 +39,7 @@ class Square(private val side: Double) : Shape {
 
 }
 
-class Rectangle(private val sideA: Double, private val sideB: Double) : Shape {
+class Rectangle(val sideA: Double, val sideB: Double) : Shape {
     init {
         if (sideA <= 0 || sideB <= 0)
             throw IllegalArgumentException("side of rectangle cannot be less than or equal to 0")
@@ -53,7 +55,7 @@ class Rectangle(private val sideA: Double, private val sideB: Double) : Shape {
 
 }
 
-class Triangle(private val sideA: Double, private val sideB: Double, private val sideC: Double) : Shape {
+class Triangle(val sideA: Double, val sideB: Double, val sideC: Double) : Shape {
     init {
         if (sideA <= 0 || sideB <= 0 || sideC <= 0)
             throw IllegalArgumentException("side of triangle cannot be less than or equal to 0")
@@ -104,20 +106,20 @@ class ShapeFactoryImpl : ShapeFactory {
     }
 
     override fun createRandomCircle(): Circle {
-        return Circle((1..50).random().toDouble())
+        return Circle((1..maxSize).random().toDouble())
     }
 
     override fun createRandomSquare(): Square {
-        return Square((1..50).random().toDouble())
+        return Square((1..maxSize).random().toDouble())
     }
 
     override fun createRandomRectangle(): Rectangle {
-        return Rectangle((1..50).random().toDouble(), (1..50).random().toDouble())
+        return Rectangle((1..maxSize).random().toDouble(), (1..50).random().toDouble())
     }
 
     override fun createRandomTriangle(): Triangle {
-        val sideA = (1..50).random().toDouble()
-        val sideB = (1..50).random().toDouble()
+        val sideA = (1..maxSize).random().toDouble()
+        val sideB = (1..maxSize).random().toDouble()
         val sideC = (abs(sideA - sideB).toInt() + 1..(sideA + sideB).toInt()).random().toDouble()
         return Triangle(sideA, sideB, sideC)
     }
@@ -128,7 +130,7 @@ class ShapeFactoryImpl : ShapeFactory {
             2 -> createRandomSquare()
             3 -> createRandomRectangle()
             4 -> createRandomTriangle()
-            else -> throw Exception("Hmm.....")
+            else -> throw IllegalArgumentException("It shouldn't be")
         }
     }
 }
@@ -148,7 +150,10 @@ class FigureOperations {
         return sum
     }
 
-    fun maxPerimeter(listShape: MutableList<Shape>): Shape {
+    fun maxPerimeter(listShape: MutableList<Shape>): Shape? {
+        if(listShape.isEmpty()){
+            return null
+        }
         var max = 0.0
         var shape: Shape = listShape.first()
         for (it in listShape)
@@ -159,8 +164,11 @@ class FigureOperations {
         return shape
     }
 
-    fun minPerimeter(listShape: MutableList<Shape>): Shape {
-        var min = 350.0//больше 300 не может быть
+    fun minPerimeter(listShape: MutableList<Shape>): Shape? {
+        if(listShape.isEmpty()){
+            return null
+        }
+        var min = Double.MAX_VALUE
         var shape: Shape = listShape.first()
         for (it in listShape)
             if (it.calcPerimeter() < min) {
@@ -170,7 +178,10 @@ class FigureOperations {
         return shape
     }
 
-    fun maxArea(listShape: MutableList<Shape>): Shape {
+    fun maxArea(listShape: MutableList<Shape>): Shape? {
+        if(listShape.isEmpty()){
+            return null
+        }
         var max = 0.0
         var shape: Shape = listShape.first()
         for (it in listShape)
@@ -181,8 +192,11 @@ class FigureOperations {
         return shape
     }
 
-    fun minArea(listShape: MutableList<Shape>): Shape {
-        var min = 8000.0
+    fun minArea(listShape: MutableList<Shape>): Shape? {
+        if(listShape.isEmpty()){
+            return null
+        }
+        var min = Double.MAX_VALUE
         var shape: Shape = listShape.first()
         for (it in listShape)
             if (it.calcArea() < min) {
