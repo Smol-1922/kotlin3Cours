@@ -1,12 +1,12 @@
 import java.util.*
 import kotlin.math.pow
 
-fun calculator(infixString: String) {
+fun calculator(infixString: String): String {
     val list = stringInList(infixString)
     if (list.isEmpty())
         throw IllegalArgumentException("You entered nothing")
     val postfix = postfix(list)
-    print(computation(postfix))
+    return computation(postfix)
 }
 
 private fun stringInList(infixString: String): MutableList<String> {
