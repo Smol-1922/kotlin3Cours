@@ -11,7 +11,7 @@ fun alignText(
     alignment: Alignment = Alignment.LEFT
 ): String {
     if (lineWidth < 1)
-        throw Exception("String size is zero or negative")
+        throw IllegalArgumentException("String size is zero or negative")
     var textNoSpace = text
     while (textNoSpace.contains("  "))
         textNoSpace = textNoSpace.replace("  ", " ")
