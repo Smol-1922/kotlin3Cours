@@ -85,9 +85,14 @@ fun main() {
     library.takeBook(user1, book3)
     library.addBook(book6, Status.Available)
     library.sendForRestoration(book6)
-    library.unregisterUser(user3)*/
-    //sixth lab
-     val shapeFactoryIMpl = ShapeFactoryImpl()
+    library.unregisterUser(user3)
+    val list:List<Book>? = library.getAllAvailableBooks()
+    if (list != null) {
+        for (iter in list){
+            println(iter.substring)
+        }*/
+        //sixth lab
+         val shapeFactoryIMpl = ShapeFactoryImpl()
      val shapeCollector = ShapeCollector<Shape>()
      val shapeComparator = ShapeComparators
      val listShape: MutableList<Shape> = mutableListOf(
@@ -117,5 +122,18 @@ fun main() {
      for (it in listSortPerimeterIncrease) {
          println(it.calcPerimeter())
      }
-
+    println()
+     val listCircle = ShapeCollector<Circle>()
+     listCircle.add(shapeFactoryIMpl.createRandomCircle())
+     listCircle.add(shapeFactoryIMpl.createRandomCircle())
+     listCircle.add(shapeFactoryIMpl.createRandomCircle())
+     val listSortRadiusIncrease: List<Circle> = listCircle.getAllSorted(shapeComparator.sortRadiusIncrease)
+     for (it in listSortRadiusIncrease) {
+         println(it.radius)
+     }
+    println()
+    val listSortRadiusDecreasing: List<Circle> = listCircle.getAllSorted(shapeComparator.sortRadiusDecreasing)
+     for (it in listSortRadiusDecreasing) {
+         println(it.radius)
+     }
 }
