@@ -30,7 +30,7 @@ fun main() {
     println("Maximum perimeter: ${figureOperations.maxArea(shapeList)}")
     println("Minimum perimeter: ${figureOperations.minArea(shapeList)}")*/
     // fourth lab
-     val array1: Array<Array<Double>> =
+    /* val array1: Array<Array<Double>> =
          arrayOf(arrayOf(1.0, 6.0), arrayOf(2.0, 12.0))
      val array2: Array<Array<Double>> =
          arrayOf(arrayOf(1.0, 0.0), arrayOf(3.0, 2.0))
@@ -55,6 +55,67 @@ fun main() {
      println(matrix3.toString())
      println(matrix3[0, 1])
      matrix3[0, 1] = 50.0
-     println(matrix3[0, 1])
+     println(matrix3[0, 1])*/
+    //fifth lab
+/*    val library = Library()
+    val book1 = Book("Financier", Author("Theodore Dreiser"), Genre.Novel, Years(1912))
+    val book2 = Book("Gifts of the Magi", Author("O.Henry"), Genre.Collector, Years(1905))
+    val book3 = Book("Nightmares and fantastic visions", Author("Stephen King"), Genre.Collector, Years(1993))
+    val book4 = Book("Slimming", Author("Stephen King"), Genre.Horror, Years(1984))
+    val book5 = Book("Barnyard", Author("George Orwell"), Genre.Fantasy, Years(1944))
+    val book6 = Book("For whom the Bell Tolls", Author("Ernest Hemingway"), Genre.Fantasy, Years(1940))
+    library.addBook(book1, Status.Available)
+    library.addBook(book2, Status.Available)
+    library.addBook(book3, Status.Available)
+    library.addBook(book4, Status.Available)
+    library.findBooks(Author("Stephen King"))
+    library.findBooks("Financier")
+    library.findBooks(Genre.Horror)
+    library.findBooks("Barnyard")
+    library.addBook(book5, Status.Available)
+    library.bookWillBeAvailable(book5)
+    val user1 = User("Dmitriy", "Kvitko")
+    val user2 = User("Tom", "Maklaren")
+    val user3 = User("Dave", "Nortin")
+    library.registerUser(user1)
+    library.registerUser(user2)
+    library.registerUser(user3)
+    library.takeBook(user1, book5)
+    library.takeBook(user1, book2)
+    library.takeBook(user1, book3)
+    library.addBook(book6, Status.Available)
+    library.sendForRestoration(book6)
+    library.unregisterUser(user3)*/
+    //sixth lab
+     val shapeFactoryIMpl = ShapeFactoryImpl()
+     val shapeCollector = ShapeCollector<Shape>()
+     val shapeComparator = ShapeComparators
+     val listShape: MutableList<Shape> = mutableListOf(
+         shapeFactoryIMpl.createRandomShape(),
+         shapeFactoryIMpl.createRandomSquare(),
+         shapeFactoryIMpl.createRandomRectangle(),
+         shapeFactoryIMpl.createRandomRectangle()
+     )
+     shapeCollector.add(shapeFactoryIMpl.createRandomTriangle())
+     shapeCollector.addAll(listShape)
+     val listSortAreaIncrease: List<Shape> = shapeCollector.getAllSorted(shapeComparator.sortAreaIncrease)
+     for (it in listSortAreaIncrease) {
+         println(it.calcArea())
+     }
+     println()
+     val listSortAreaDecreasing: List<Shape> = shapeCollector.getAllSorted(shapeComparator.sortAreaDecreasing)
+     for (it in listSortAreaDecreasing) {
+         println(it.calcArea())
+     }
+     println()
+     val listSortPerimeterDecreasing: List<Shape> = shapeCollector.getAllSorted(shapeComparator.sortPerimeterDecreasing)
+     for (it in listSortPerimeterDecreasing) {
+         println(it.calcPerimeter())
+     }
+     println()
+     val listSortPerimeterIncrease: List<Shape> = shapeCollector.getAllSorted(shapeComparator.sortPerimeterIncrease)
+     for (it in listSortPerimeterIncrease) {
+         println(it.calcPerimeter())
+     }
 
 }
