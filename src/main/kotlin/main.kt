@@ -136,4 +136,7 @@ fun main() {
      for (it in listSortRadiusDecreasing) {
          println(it.radius)
      }
+    val allShape:List<Shape> = shapeCollector.getAll()
+    println(allShape)
+
 }
