@@ -7,6 +7,10 @@ class Matrix(array: Array<Array<Double>>) {
         if (array.isEmpty()) {
             throw IllegalArgumentException("Matrix is empty")
         }
+        for (it in array) {
+            if (it.size != array[0].size)
+                throw ArrayIndexOutOfBoundsException("Matrix is not rectangular")
+        }
         matrix = Array(array.size) { Array(array[0].size) { 0.0 } }
         for (row in array.indices) {
             for (column in array[0].indices)
@@ -55,7 +59,8 @@ class Matrix(array: Array<Array<Double>>) {
     }
 
     operator fun times(other: Matrix): Matrix {
-        checkDimension(other)
+        if (column != other.row)
+            throw IllegalArgumentException("Wrong dimension of matrix")
         val result: Array<Array<Double>> = Array(row) { Array(other.column) { 0.0 } }
         for (it in result.indices)
             for (column in result[0].indices)
@@ -71,7 +76,8 @@ class Matrix(array: Array<Array<Double>>) {
     }
 
     operator fun timesAssign(other: Matrix) {
-        checkDimension(other)
+        if (column != other.row)
+            throw IllegalArgumentException("Wrong dimension of matrix")
         val result: Array<Array<Double>> = Array(row) { Array(other.column) { 0.0 } }
         for (it in result.indices)
             for (column in result[0].indices)
@@ -125,7 +131,7 @@ class Matrix(array: Array<Array<Double>>) {
     }
 
     private fun checkDimension(other: Matrix) {
-        if (column != other.row || (row != other.row && column != other.column))
+        if (row != other.row && column != other.column)
             throw IllegalArgumentException("Wrong dimension of matrix")
     }
 
