@@ -5,7 +5,8 @@ import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.*
 import java.io.FileReader
 import java.io.FileWriter
-import Shape
+import java.io.IOException
+
 private val json = Json {
     prettyPrint = true
 
@@ -31,12 +32,13 @@ object Serialization {
 }
 
 object FileIO {
+    @Throws(IOException::class)
     fun writeToFile(data: String, path: String) {
         FileWriter(path).buffered().use { writer ->
             writer.write(data)
         }
     }
-
+    @Throws(IOException::class)
     fun readFromFile(path: String): String {
         var text: String
         FileReader(path).buffered().use { reader ->

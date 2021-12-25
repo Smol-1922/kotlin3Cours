@@ -57,7 +57,7 @@ fun main() {
      matrix3[0, 1] = 50.0
      println(matrix3[0, 1])*/
     //fifth lab
-    val library = Library()
+    /*val library = Library()
     print(library.getAllBooks())
     val book1 = Book("Financier", Author("Theodore Dreiser"), Genre.Novel, Years(1912))
     val book2 = Book("Gifts of the Magi", Author("O.Henry"), Genre.Collector, Years(1905))
@@ -90,7 +90,7 @@ fun main() {
     val list:List<Book> = library.getAllAvailableBooks()
         for (iter in list) {
             println(iter.substring)
-        }
+        }*/
         //sixth lab
       /*   val shapeFactoryIMpl = ShapeFactoryImpl()
      val shapeCollector = ShapeCollector<Shape>()
@@ -140,7 +140,7 @@ fun main() {
     println(allShape)
 */
     // seventh lab
-   /* val inputPath = "F:\\untitled5\\src\\main\\kotlin\\IN.json"
+    val inputPath = "F:\\untitled5\\src\\main\\kotlin\\IN.json"
     val outputPath = "F:\\untitled5\\src\\main\\kotlin\\OUT.json"
 
     val shapeFactory = ShapeFactoryImpl()
@@ -149,5 +149,5 @@ fun main() {
     shapeList.add(shapeFactory.createRandomShape())
     shapeList.add(shapeFactory.createRandomShape())
     shapeList.add(shapeFactory.createRandomShape())
-    FileIO.writeToFile(Serialization.serialization(shapeList), outputPath)*/
+    FileIO.writeToFile(Serialization.serialization(shapeList), outputPath)
 }
