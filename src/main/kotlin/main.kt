@@ -57,7 +57,7 @@ fun main() {
      matrix3[0, 1] = 50.0
      println(matrix3[0, 1])*/
     //fifth lab
-/*    val library = Library()
+    /*val library = Library()
     val book1 = Book("Financier", Author("Theodore Dreiser"), Genre.Novel, Years(1912))
     val book2 = Book("Gifts of the Magi", Author("O.Henry"), Genre.Collector, Years(1905))
     val book3 = Book("Nightmares and fantastic visions", Author("Stephen King"), Genre.Collector, Years(1993))
@@ -88,11 +88,12 @@ fun main() {
     library.unregisterUser(user3)
     val list:List<Book>? = library.getAllAvailableBooks()
     if (list != null) {
-        for (iter in list){
+        for (iter in list) {
             println(iter.substring)
-        }*/
+        }
+    }*/
         //sixth lab
-         val shapeFactoryIMpl = ShapeFactoryImpl()
+      /*   val shapeFactoryIMpl = ShapeFactoryImpl()
      val shapeCollector = ShapeCollector<Shape>()
      val shapeComparator = ShapeComparators
      val listShape: MutableList<Shape> = mutableListOf(
@@ -138,5 +139,16 @@ fun main() {
      }
     val allShape:List<Shape> = shapeCollector.getAll()
     println(allShape)
+*/
+    // seventh lab
+    val inputPath = "F:\\untitled5\\src\\main\\kotlin\\IN.json"
+    val outputPath = "F:\\untitled5\\src\\main\\kotlin\\OUT.json"
 
+    val shapeFactory = ShapeFactoryImpl()
+
+    val shapeList: MutableList<Shape> = Serialization.deserialization(FileIO.readFromFile(inputPath)).toMutableList()
+    shapeList.add(shapeFactory.createRandomShape())
+    shapeList.add(shapeFactory.createRandomShape())
+    shapeList.add(shapeFactory.createRandomShape())
+    FileIO.writeToFile(Serialization.serialization(shapeList), outputPath)
 }

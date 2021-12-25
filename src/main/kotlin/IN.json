@@ -1,0 +1,14 @@
+[
+    {
+        "type": "Circle",
+        "radius": 40.0
+    },
+    {
+        "type": "Square",
+        "side": 5.0
+    },
+    {
+        "type": "Circle",
+        "radius": 47.0
+    }
+]
