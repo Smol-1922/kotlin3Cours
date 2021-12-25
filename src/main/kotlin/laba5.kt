@@ -1,7 +1,7 @@
-class Book(val substring: String, val author: Author, val genre: Genre, val year: Years)
-class Author(val Name: String)
-class User(val firstName: String, val lastName: String)
-class Years(val year: Int)
+data class Book(val substring: String, val author: Author, val genre: Genre, val year: Years)
+data class Author(val Name: String)
+data class User(val firstName: String, val lastName: String)
+data class Years(val year: Int)
 
 enum class Genre {
     Fantasy,
@@ -47,73 +47,61 @@ interface LibraryService {
 class Library : LibraryService {
     private val books: MutableMap<Book, Status> = mutableMapOf()
     private val users: MutableList<User> = mutableListOf()
-    override fun findBooks(substring: String): List<Book>? {
+    override fun findBooks(substring: String): List<Book> {
         val listBooks: MutableList<Book> = mutableListOf()
         for (key in books.keys) {
             if (key.substring == substring) {
                 listBooks.add(key)
             }
         }
-        if (listBooks.isEmpty())
-            return null
         return listBooks
     }
 
-    override fun findBooks(author: Author): List<Book>? {
+    override fun findBooks(author: Author): List<Book> {
         val listBooks: MutableList<Book> = mutableListOf()
         for (key in books.keys) {
             if (key.author == author) {
                 listBooks.add(key)
             }
         }
-        if (listBooks.isEmpty())
-            return null
         return listBooks
     }
 
-    override fun findBooks(year: Years): List<Book>? {
+    override fun findBooks(year: Years): List<Book> {
         val listBooks: MutableList<Book> = mutableListOf()
         for (key in books.keys) {
             if (key.year == year) {
                 listBooks.add(key)
             }
         }
-        if (listBooks.isEmpty())
-            return null
         return listBooks
     }
 
-    override fun findBooks(genre: Genre): List<Book>? {
+    override fun findBooks(genre: Genre): List<Book> {
         val listBooks: MutableList<Book> = mutableListOf()
         for (key in books.keys) {
             if (key.genre == genre) {
                 listBooks.add(key)
             }
         }
-        if (listBooks.isEmpty())
-            return null
         return listBooks
     }
 
-    override fun getAllBooks(): List<Book>? {
+    override fun getAllBooks(): List<Book> {
         val listBooks: MutableList<Book> = mutableListOf()
         for (key in books.keys) {
             listBooks.add(key)
         }
-        if (listBooks.isEmpty())
-            return null
         return listBooks
     }
 
-    override fun getAllAvailableBooks(): List<Book>? {
+    override fun getAllAvailableBooks(): List<Book> {
         val listBooks: MutableList<Book> = mutableListOf()
         for ((key, value) in books) {
             if (value == Status.Available) {
                 listBooks.add(key)
             }
         }
-        if (listBooks.isEmpty())
-            return null
         return listBooks
     }
 
@@ -142,19 +130,32 @@ class Library : LibraryService {
     }
 
     override fun registerUser(user: User) {
+        if (users.contains(user))
+            throw IllegalArgumentException("user registered")
         users.add(user)
     }
 
     override fun unregisterUser(user: User) {
         if (users.contains(user))
             users.remove(user)
+        else
+            throw IllegalArgumentException("such user does not exist")
     }
 
     override fun takeBook(user: User, book: Book) {
-        if (books[book] != null && users.contains(user) && books[book] == Status.Available) {
-            if (amountBook(user) < 3)
-                books[book] = Status.UsedBy(user)
-        }
+        if (books[book] != null)
+            if (users.contains(user))
+                if (books[book] == Status.Available) {
+                    if (amountBook(user) < 4)
+                        books[book] = Status.UsedBy(user)
+                    else
+                        throw IllegalArgumentException("user has 3 books")
+                } else
+                    throw IllegalArgumentException("Book not available")
+            else
+                throw IllegalArgumentException("such user does not exist")
+        else
+            throw IllegalArgumentException("no such book exists")
     }
 
 
